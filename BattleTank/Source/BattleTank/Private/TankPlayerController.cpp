@@ -7,7 +7,7 @@
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
+	//UE_LOG(LogTemp, Warning, TEXT("PlayerController: Begin Play"));
 
 
 	auto ControlledTank = GetControlledTank();
@@ -17,7 +17,7 @@ void ATankPlayerController::BeginPlay()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("PlayerController: Possessed Tank is %s"), *(ControlledTank->GetName()));
+		UE_LOG(LogTemp, Warning, TEXT("PlayerController: Possessing %s"), *(ControlledTank->GetName()));
 	}
 
 	
