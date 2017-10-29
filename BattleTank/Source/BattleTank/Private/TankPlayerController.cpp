@@ -46,9 +46,11 @@ void ATankPlayerController::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()) { return; }
 
-	FVector HitLocation; // Out parameter
-	if (GetSightRayHitLocation(HitLocation)) // Has "side-effect", is going to line trace
+	FVector OutHitLocation; // Out parameter
+	if (GetSightRayHitLocation(OutHitLocation)) // Has "side-effect", is going to line trace
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Hit Target: %s"), (*OutHitLocation.ToString()));
+
 
 		//UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), (*HitLocation.ToString()));
 
@@ -69,10 +71,10 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	FVector LookDirection;
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("LookDirection: %s"), (*LookDirection.ToString()));
+		//Line-trace along that look direction, and see what we hit (up to max range)
+		GetLookVectorHitLocation(LookDirection, OutHitLocation);
 	}
 
-	//Line-trace along that look direction, and see what we hit (up to max range)
 
 	return true;
 }
@@ -88,4 +90,24 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& 
 		CameraWorldLocation,
 		LookDirection
 	);
+}
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& OutHitLocation) const 
+{
+	FHitResult HitResult;
+	FVector StartTrace = PlayerCameraManager->GetCameraLocation();
+	FVector EndTrace = StartTrace + (LookDirection*LineTraceRange);
+
+	
+	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartTrace, EndTrace, ECC_Visibility)) 
+	{
+		OutHitLocation = HitResult.Location;
+		return true;
+	}
+	else
+	{
+		OutHitLocation = FVector(0);
+		return false;
+	}
+	
 }
