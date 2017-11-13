@@ -6,10 +6,10 @@
 #include "AIController.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Actor.h"
-//#include ""
-#include "Public/Tank.h"
 #include "TankAIController.generated.h" //Must be the last include
 
+//Forward Declarations
+class ATank;
 
 
 /**

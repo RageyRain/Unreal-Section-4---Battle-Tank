@@ -3,14 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-//#include "BattleTank.h"
-//#include "Public/UObject/Class.h"
 #include "GameFramework/PlayerController.h"
-
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
-#include "Public/Tank.h"
 #include "TankPlayerController.generated.h" //Must be the last include
+
+
+// Forward Declarations
+class ATank;
+
 
 /**
  * 

@@ -6,10 +6,9 @@
 #include "Components/ActorComponent.h"
 #include "GameFramework/Actor.h"
 #include "Kismet/GameplayStatics.h"
-#include "TankBarrel.h"
 #include "TankAimingComponent.generated.h"
 
-//Forward Declaration
+//Forward Declarations
 class UTankBarrel; 
 
 //Holds barrel's properties and elevate method
