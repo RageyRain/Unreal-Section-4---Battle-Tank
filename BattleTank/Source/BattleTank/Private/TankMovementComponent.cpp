@@ -35,5 +35,15 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 }
 
 
+void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
+{
+	//No need to call Super as we're replacing functionality
+
+	auto TankName = GetOwner()->GetName();
+	auto MoveVelocityString = MoveVelocity.ToString();
+	
+	UE_LOG(LogTemp, Warning, TEXT("Tank Name= %s - MoveVelocity= %s"), *TankName, *MoveVelocityString);
+
+}
 
 
