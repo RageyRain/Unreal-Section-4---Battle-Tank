@@ -11,6 +11,23 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
 }
 
 
+void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
+{
+	//No need to call Super as we're replacing functionality
+
+	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
+
+	auto ForwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
+	auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
+
+	IntendMoveForward(ForwardThrow);
+	IntendTurnRight(RightThrow);
+
+	//auto TankName = GetOwner()->GetName();
+	//UE_LOG(LogTemp, Warning, TEXT("Tank Name= %s - MoveVelocity= %s"), *TankName, *MoveVelocityString);
+
+}
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
@@ -21,8 +38,6 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 	// TODO prevent double-speed due to dual control use
 }
-
-
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
@@ -35,20 +50,5 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 }
 
 
-void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
-{
-	//No need to call Super as we're replacing functionality
-
-	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
-	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
-
-	auto ForwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
-	
-	IntendMoveForward(ForwardThrow);
-
-	//auto TankName = GetOwner()->GetName();
-	//UE_LOG(LogTemp, Warning, TEXT("Tank Name= %s - MoveVelocity= %s"), *TankName, *MoveVelocityString);
-
-}
 
 
