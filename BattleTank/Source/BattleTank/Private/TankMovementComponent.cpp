@@ -26,7 +26,6 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 
 	//auto TankName = GetOwner()->GetName();
 	//UE_LOG(LogTemp, Warning, TEXT("Tank Name= %s - MoveVelocity= %s"), *TankName, *MoveVelocityString);
-
 }
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
