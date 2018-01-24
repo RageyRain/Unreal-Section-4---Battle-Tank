@@ -10,8 +10,6 @@ void UTankAimingComponent::Initialise(UTankBarrel* TankBarrelToSet, UTankTurret*
 	Barrel = TankBarrelToSet;
 	Turret = TankTurretToSet;
 
-	UE_LOG(LogTemp, Warning, TEXT("PLATYPUS: TankAimingComponent.cpp Initialise"));
-
 }
 
 

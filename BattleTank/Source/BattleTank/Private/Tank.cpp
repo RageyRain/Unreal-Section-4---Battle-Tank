@@ -15,7 +15,7 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 
 	auto TankName = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("[%s] PLATYPUS: Tank.cpp Constructer"), *TankName);
+	UE_LOG(LogTemp, Warning, TEXT("[ %s ] PLATYPUS: Tank.cpp Constructer"), *TankName);
 	
 }
 
@@ -25,7 +25,7 @@ void ATank::BeginPlay()
 	Super::BeginPlay();
 
 	auto TankName = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("[%s] PLATYPUS: Tank.cpp BeginPlay"));
+	UE_LOG(LogTemp, Warning, TEXT("[ %s ] PLATYPUS: Tank.cpp BeginPlay"));
 
 }
 
