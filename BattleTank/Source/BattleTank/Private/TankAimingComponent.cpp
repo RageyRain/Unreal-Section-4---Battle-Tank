@@ -28,7 +28,7 @@ UTankAimingComponent::UTankAimingComponent()
 void UTankAimingComponent::AimAt(FVector OutHitLocation, float FiringSpeed)
 
 {
-	if (!Barrel) { return; }
+	if (!ensure(Barrel)) { return; }
 
 	FVector OutFiringVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
@@ -45,7 +45,7 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation, float FiringSpeed)
 		0,
 		ESuggestProjVelocityTraceOption::DoNotTrace // Parameter must be present to prevent bug
 	);
-	if (bHaveAimSolution)
+	if (ensure(bHaveAimSolution))
 	{
 		auto AimDirection = OutFiringVelocity.GetSafeNormal();
 		auto TankName = GetOwner()->GetName();
@@ -58,7 +58,7 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation, float FiringSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-	if (!Barrel || !Turret) { return; }
+	if (!ensure (Barrel && Turret)) { return; }
 	//Work-out the difference between current barrel rotation, and AimDirection
 	auto  BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
