@@ -40,7 +40,8 @@ private:
 	// Called to bind functionality to input
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;
-
+	
+	// TODO Remove once firing is moved to aiming component 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float FiringSpeed = 4000; 
 	
