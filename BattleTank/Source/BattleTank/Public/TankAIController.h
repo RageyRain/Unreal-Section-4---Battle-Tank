@@ -9,7 +9,6 @@
 #include "TankAIController.generated.h" //Must be the last include
 
 //Forward Declarations
-class ATank;
 
 
 /**

@@ -25,7 +25,7 @@ UTankAimingComponent::UTankAimingComponent()
 }
 
 
-void UTankAimingComponent::AimAt(FVector OutHitLocation, float FiringSpeed)
+void UTankAimingComponent::AimAt(FVector OutHitLocation)
 
 {
 	if (!ensure(Barrel)) { return; }
@@ -53,6 +53,8 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation, float FiringSpeed)
 
 	}
 	//If no solution found do nothing
+
+
 }
 
 

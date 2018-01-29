@@ -10,7 +10,6 @@
 
 
 // Forward Declarations
-class ATank;
 class UTankAimingComponent;
 
 /**
@@ -27,11 +26,9 @@ public:
 
 
 protected:
-	UFUNCTION(BLueprintCallable, Category = "Setup")
-	ATank* GetControlledTank() const;
-
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
+
 
 private:
 	//Start the tank moving the barrel so that a shot would hit where the crosshair intersects with the world
