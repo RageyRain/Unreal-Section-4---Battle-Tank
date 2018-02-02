@@ -5,6 +5,30 @@
 
 #pragma once
 
+// Constructor
+UTankTrack::UTankTrack()
+{
+	PrimaryComponentTick.bCanEverTick = true;
+
+}
+
+void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	//Calculate the splippage speed
+	auto Velocity = GetComponentVelocity();
+	auto RightVector = GetRightVector();
+	auto SlippageSpeed = FVector::DotProduct(Velocity, RightVector);
+
+	//Work out the required acceleration this frame to correct
+	auto CorrectionAcceleration = -(SlippageSpeed / DeltaTime * GetRightVector());
+
+	//Calculate and apply sideways force (F=ma)
+	auto TankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
+	auto CorrectionForce = ((TankRoot->GetMass()) * CorrectionAcceleration) / 2; //Two tracks
+	TankRoot->AddForce(CorrectionForce);
+}
 
 void UTankTrack::SetThrottle(float Throttle)
 {
