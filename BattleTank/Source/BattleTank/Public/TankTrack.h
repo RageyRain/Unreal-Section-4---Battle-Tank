@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/Actor.h"
+#include "Engine/World.h"
 #include "Components/StaticMeshComponent.h"
 #include "TankTrack.generated.h"
 
@@ -23,16 +24,20 @@ public:
 	
 	// Max force per track in newtons
 	UPROPERTY(EditDefaultsOnly)
-		float TrackMaxDrivingForce = 400000; // Assume 40 tonne tank, and 1g acceleration
+		float TrackMaxDrivingForce = 600000; // Assume 40 tonne tank, and 1g acceleration
 	
 private:
 	UTankTrack();
 
 	virtual void BeginPlay() override;
 
-	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+	void ApplySidewaysForce();
 
 	UFUNCTION(BlueprintCallable, Category = "Movement")
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
+	void DriveTrack();
+
+	float CurrentThrottle = 0;
 
 };
