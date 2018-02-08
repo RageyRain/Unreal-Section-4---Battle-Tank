@@ -36,22 +36,31 @@ void UTankAimingComponent::BeginPlay()
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
-	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+	if (AmmoCount > 0)
 	{
-		FiringState = EFiringState::Reloading;
-	}
-	else if (IsBarrelMoving())
-	{
-		FiringState = EFiringState::Aiming;
+		if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+		{
+			FiringState = EFiringState::Reloading;
+		}
+		else if (IsBarrelMoving())
+		{
+			FiringState = EFiringState::Aiming;
+		}
+		else
+		{
+			FiringState = EFiringState::Ready;
+		}
 	}
 	else
 	{
-		FiringState = EFiringState::Ready;
+		FiringState = EFiringState::Empty;
 	}
-	
 }
 
-
+int32 UTankAimingComponent::GetAmmoCount() const
+{
+	return AmmoCount;
+}
 
 EFiringState UTankAimingComponent::GetFiringState() const
 {
@@ -123,19 +132,27 @@ bool UTankAimingComponent::IsBarrelMoving()
 
 void UTankAimingComponent::Fire()
 {
-	if (FiringState != EFiringState::Reloading)
+	if (FiringState != EFiringState::Empty)
 	{
-		if (!ensure(Barrel)) { return; }
-		if (!ensure(ProjectileBlueprint)) { return; }
-		//Spawn a projectile at the socket location on the barrel
-		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
-			ProjectileBlueprint,
-			Barrel->GetSocketLocation(FName("Projectile")),
-			Barrel->GetSocketRotation(FName("Projectile"))
-			);
+		if (FiringState != EFiringState::Reloading)
+		{
+			if (!ensure(Barrel)) { return; }
+			if (!ensure(ProjectileBlueprint)) { return; }
+			//Spawn a projectile at the socket location on the barrel
+			auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+				ProjectileBlueprint,
+				Barrel->GetSocketLocation(FName("Projectile")),
+				Barrel->GetSocketRotation(FName("Projectile"))
+				);
 
-		Projectile->LaunchProjectile(FiringSpeed);
-		LastFireTime = FPlatformTime::Seconds();
+			Projectile->LaunchProjectile(FiringSpeed);
+			LastFireTime = FPlatformTime::Seconds();
+			AmmoCount = AmmoCount - 1;
+		}
+	}
+	else
+	{
+		return;
 	}
 }
 

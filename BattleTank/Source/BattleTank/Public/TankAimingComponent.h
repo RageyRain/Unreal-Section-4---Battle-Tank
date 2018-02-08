@@ -10,7 +10,7 @@
 
 //Enum for aiming state
 UENUM()
-enum class EFiringState : uint8 {Reloading, Aiming, Ready};
+enum class EFiringState : uint8 {Reloading, Aiming, Ready, Empty};
 
 //Forward Declarations
 class UTankBarrel;
@@ -30,15 +30,17 @@ public:
 
 	void AimAt(FVector OutHitLocation);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
 	EFiringState GetFiringState() const;
 
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int32 GetAmmoCount() const;
+
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringState = EFiringState::Reloading;
-
 
 private:
 	// Sets default values for this component's properties
@@ -67,5 +69,7 @@ private:
 
 	double LastFireTime = 0;
 
+	int32 AmmoCount = 3; //Starting ammo count
+		
 	FVector AimDirection;
 };
