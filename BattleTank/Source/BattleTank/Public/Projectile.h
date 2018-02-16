@@ -9,6 +9,7 @@
 #include "Engine/World.h"
 #include "TimerManager.h"
 #include "PhysicsEngine/RadialForceComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Projectile.generated.h"
 
 //Forward Declarations
@@ -49,6 +50,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float DestroyDelay = 5.0f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float ProjectileDamage = 20.0f;
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
