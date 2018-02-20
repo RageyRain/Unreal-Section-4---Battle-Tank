@@ -23,7 +23,7 @@ void ATankAIController::Tick(float DeltaTime)
 	//Get Player tank
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
 
-	if (!ensure(PlayerTank && ControlledTank)) { return; }
+	if (!(PlayerTank && ControlledTank)) { return; }
 			
 	//Move towards the player
 	MoveToActor(PlayerTank, AcceptanceRadius); // TODO check radius is in cm
@@ -58,6 +58,8 @@ void ATankAIController::SetPawn(APawn* InPawn)
 
 void ATankAIController::OnPossessedTankDeath()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Broadcast received"));
+	UE_LOG(LogTemp, Warning, TEXT("AI Broadcast received"));
+	if (!GetPawn())	{ return; }
+	GetPawn()->DetachFromControllerPendingDestroy();
 }
 

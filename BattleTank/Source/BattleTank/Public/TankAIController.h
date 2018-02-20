@@ -6,6 +6,7 @@
 #include "AIController.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/Pawn.h"
 #include "TankAIController.generated.h" //Must be the last include
 
 //Forward Declarations
